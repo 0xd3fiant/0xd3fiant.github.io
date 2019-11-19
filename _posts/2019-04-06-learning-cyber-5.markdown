@@ -1,0 +1,131 @@
+---
+layout: post
+title: 'Learning Cyber 5: Introduction to Malware Analysis Part 3'
+date: '2019-04-06 04:01:18'
+tags:
+- learningcyber
+- reversing_and_malware
+---
+
+In [Learning Cyber 3](https://d3fiant.io/learningcyber-3/) and [Learning Cyber 4](https://d3fiant.io/learningcyber-4/), we analyzed a sample of the _Jigsaw_ malware. Today, we'll continue with the malware analysis study by examining network connections. During our analysis, we'll make use of the same environment that we did in the last two posts.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+# Setup
+
+For this lab, we'll use the Remnux VM from [Learning Cyber 1](https://d3fiant.io/learningcyber-1/) and a Windows VM as the victim. For this lab, I ran a Flare VM for my Windows Victim VM, but you could use the same Windows VM from the previous posts.
+
+If you want to use the same VM as me, go [here](https://github.com/fireeye/flare-vm) and follow the instructions. Flare is a set of packages for Windows to make Malware analysis easier. You'll need a Windows VM to install Flare on. I used the Windows 10 VMware image from [here](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/). For those of you paying attention, it's the same image we used for the initial Windows VM in Learning Cyber 1. For my setup, I reverted my snapshot back to a clean state and followed the instructions on the flare-vm github page posted above.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+# Remnux VM Setup
+
+In the Remnux VM, open a terminal and type
+
+    accept-all-ips start
+
+The above command is an alias (unique to Remnux) that does some _IPTables_ manipulation to set Remnux up to accept any IP that comes to it. _IPTables_ is the Linux Firewall. Remember UFW from Learning Cyber 1? UFW is a tool used to _easily_ configure IPTables. IPTables are the tables that actually make up the Firewall rules for the Linux kernel, but they can be difficult for a novice user to manage. UFW provides an easier way to manage IPTables. For more information on IPTables, go [here](https://www.howtogeek.com/177621/the-beginners-guide-to-iptables-the-linux-firewall/).
+
+_OK, so why are we doing this?_  
+By default, most operating systems will only accept network traffic destined for the IP address that's assigned to that host. It's pretty similar to how snail-mail (Traditional mail with envelopes etc.) works. When you get a piece of mail addressed to someone else, you're supposed to send it back (assuming that you are a law abiding citizen). We are setting Remnux up to accept mail (network packets) that are addressed to anyone. We need Remnux setup this way because we want to make it look like a) any malicious server that _Jigsaw_ reaches out to and b) a DNS server.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+### FakeDNS
+
+In order to get Remnux to respond to DNS, we need to run _FakeDNS_. Open a terminal and type
+
+    fakedns
+
+This will start the _FakeDNS_ program. While _FakeDNS_ is running, Remnux will respond to any DNS request and say that the domain points to the IP address of our Remnux VM. You'll likely see a lot of things pop up while running _FakeDNS_. Most of the DNS requests are for Microsoft Telemetry services, so you can ignore them.
+
+You'll need to leave _FakeDNS_ running in this terminal during the analysis, so make sure you run any other commands in another terminal window.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+### InetSim
+
+Lastly, we need to setup Remnux to respond to any HTTP/HTTPS requests that are sent to it. [InetSim](https://www.inetsim.org) is a program that simulates network services like HTTP/HTTPS. To run InetSim, type
+
+    inetsim
+
+Like _FakeDNS_, _InetSim_ will need to run the whole time during the engagement, so make sure to run any other commands in a different terminal window.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+# Windows VM Setup
+
+Whether you use Flare or the original Windows VM, make sure that it's set to Host-Only mode. Next, if you're on the original VM, make sure that the Windows Defender settings are turned off (see the previous Learning Cyber posts if you've forgot how).
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+## Networking
+
+While Remnux is setup to receive and respond to DNS and HTTP/HTTPS traffic, Windows isn't going to just send all of its traffic that way without some configuration.
+
+To make Windows send it's traffic to Remnux, we need to edit the network settings. Hit the _Windows_ key and type _Control Panel_. To the right of the _Control Panel_ window, select _View By_ -\> \*Small Icons)
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.15.14-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Next, select _Network and Sharing Center_.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.16.22-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+On the left side of the screen, select _Change adapter settings_.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.17.12-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Right click your _Ethernet_ adapter and select _Properties_.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.18.12-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Select _Internet Protocol Version 4 (TCP/IPv4)_ and click _Properties_.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.19.13-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Lastly, fill in the information (like above) substituting _192.168.90.241_ with the IP address of your Windows VM and _192.168.90.129_ with the IP address of your Remnux VM.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
+_What are we doing here?_  
+We're adjusting our Windows Network settings to set the Gateway and DNS server as our Remnux VM. This will make our Windows VM send all traffic to the Remnux VM.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+# Analysis
+
+Now that everything is setup, take a snapshot of your Windows VM. It's time to analyze _Jigsaw_, but before you run the malware, go ahead and start a _Wireshark_ capture on Remnux. Once the capture is running, switch to the Windows VM and run _Jigsaw_.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.33.00-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Once the _Jigsaw_ message has completed and you see the screen above, click _I made a payment, now give me back my files_. You'll get an error, but that's OK.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-11.34.05-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Switch over to the Remnux VM to evaluate any network traffic. Stop the Wireshark capture. Let's begin the analysis with the FakeDNS terminal.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-10.08.08-PM-1.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+We see a lot of Microsoft related content, but you should also notice one entry that stands out _btc.blockr.io_. Let's examine that traffic in Wireshark.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-10.10.20-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+Scroll through the Wireshark output until you see the DNS request for _btc.blockr.io_ (see above). As expected, we can see that our Remnux VM responded to the DNS request with its own IP address.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-10.10.45-PM-1.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+The next few packets after the DNS request show _Jigsaw_ making a connection (_SYN_ -\> _SYN, ACK_ -\> _ACK_) to the Remnux VM.
+
+Next, we see an _HTTP GET_ request (Highlighted above).
+
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
+Right click the _GET_ request and select _Follow -\> TCP Stream_).
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-10.11.30-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+In the above image, we can see a _GET_ request to _/api/v1/coin/info_ but not much else. Unfortunately, _InetSim_ is a fairly simple simulator and is only setup to respond with a generic page. If we look back at _Jigsaw_ (see below), we'll see that it didn't get the response it was looking for, so it thinks that there isn't an Internet connection.
+
+<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/04/Screen-Shot-2019-04-05-at-10.08.44-PM.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+In this post, we setup the ground work for performing some basic dynamic malware analysis of network traffic. Unfortunately, we didn't see much traffic from _Jigsaw_ using this approach, but we did learn another piece of the puzzle. Specifically, we learned that _Jigsaw_ reaches out to _btc.blockr.io/api/v1/coin/info_ when the payment button is pressed. In future posts, we'll dive deeper into dynamic malware analysis of network traffic, but at this point you should have a couple tools in your tool-belt to get you started. Go ahead and try your hand out at a couple of the other malware samples in _theZoo_ on your Kali VM. If you have any questions, feel free to reach out!
+
+<!--kg-card-end: markdown-->

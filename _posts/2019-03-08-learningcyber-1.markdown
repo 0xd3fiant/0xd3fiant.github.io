@@ -1,0 +1,160 @@
+---
+layout: post
+title: 'Learning Cyber 1: Setting Up A Lab'
+date: '2019-03-08 02:32:21'
+tags:
+- learningcyber
+---
+
+> Nascar Professional couldn't be drivers without their car. &nbsp;It's the same with cybersecurity professionals and their laptop. - Cybersecurity Professional
+
+The quote above is from a colleague of mine, a guy that's been in the profession for 15 years, has more certs than you can shake a stick at, and experience in numerous high-stakes cyber positions. &nbsp;To say the least, he's been around the cyber block. &nbsp;This guy is constantly learning to better himself and has done a lot through self-study. &nbsp;
+
+Luckily for me, he's my mentor which presents opportunities to discuss a lot of topics, including "What makes a cybersecurity professional a cybersecurity _professional_". &nbsp;It's a tough question to answer and we've considered a lot of different aspects. Some people will tell you that a cyber pro needs a computer science degree or a list of fancy certifications. &nbsp;Others will tell you that experience makes the professional. &nbsp;Personally, I believe that these are all good data points/indicators, but for me the best indicator is mindset. &nbsp;
+
+The _Hacker_ mindset. It's that desire to understand how things work. &nbsp;It's the relentless pursuit for that last piece of the puzzle. &nbsp;Unfortunately, understanding a person's mindset is difficult without spending significant time with him/her. Fortunately, a pretty decent idea for getting a glimpse into someone's mindset is to learn about his/her lab. &nbsp;The cyber pro's lab can tell you a lot about the desire to learn and the types of things that he or she has been working on. &nbsp;
+
+This post is an introduction into creating a lab for yourself. &nbsp;It's about providing an environment where you can practice your tool-sets and techniques in a controlled environment. &nbsp;It gives you a space to experiment with new ideas, but just as important, it gives you a controlled space to gain a deeper understanding of technologies that we employ every day for our day jobs.   
+  
+Personally, I recommend setting up your lab on a laptop. Laptops give you a lot of flexibility in location. &nbsp;Obviously, there's a trade-off when compared to a traditional desktop computer. &nbsp;Laptops are more expensive and generally less powerful than their desktop counterparts, _but_ they are more portable. &nbsp;This is important because it lets you take your setup on the go, which is beneficial for training sessions, conferences, and training when not at home.
+
+You can get a decent setup for around $1200. Ideally, you want a decent processor, 500GB of storage (preferably ssd) and something with 16GB of ram or more. &nbsp;The ram requirements are particularly important because it allows you to run more virtual machines in parallel. &nbsp;
+
+<!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+# Setup
+
+To start with, we are going to need a few things. Follow the links below, download and install one of the hypervisors, and download each of the virtual machines.
+
+- Hypervisors
+  - Preferably, use [VMWare Workstation Pro](https://www.vmware.com/products/workstation-pro.html) or [VMWare Fusion Pro](https://store.vmware.com/store/vmware/en_US/pd/productID.5222152800), but they each cost around $275
+  - You can get by using [VirtualBox](https://www.virtualbox.org/) or [VMWare Player](https://www.vmware.com/products/workstation-player.html), but you're losing out on features that's you will probably want, such as snapshots and defined networking.
+- Virtual Machines
+  - [Kali Linux](https://www.offensive-security.com/kali-linux-vm-vmware-virtualbox-image-download/)
+    - Choose Kali Linux Vm 64 Bit 7z
+  - [Remnux](https://remnux.org/)
+  - [Windows VM](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
+    - Choose MSEdge on Win 10
+  - [Metasploitable](https://sourceforge.net/projects/metasploitable/)
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+# Importing the VMs
+
+Now that we have a hypervisor installed and our virtual machines downloaded, we need to get them imported so we can use them. First unzip each of the zip archives that you downloaded (I prefer [7zip](https://www.7-zip.org/) for my archival needs). I recommend transferring the files somewhere other than your Downloads folder.
+
+1. For each of the three virtual machines
+2. Click _File_-\>_Open_
+3. Navigate to the directory where you saved your virtual machines.
+4. Select the .vmdk or .ova file
+5. Click _Open_
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+# Kali Linux Setup
+
+Start up your Kali virtual machine by _right clicking_ it in your hypervisor and selecting _run_ or _start_.
+
+Once it boots up, you'll be presented with a log-in prompt. The default credentials are _root:toor_ (username:password).
+
+Once logged in, open a terminal by hitting either your _Windows_ key or _command_ key for macs. Then type _terminal_ and hit enter.
+
+Kali Linux is a Linux distribution with a number of pre-installed security tools. Since this is Linux and we will be heavily utilizing the terminal, let's go over some basic commands.
+
+- Figure out what directory you are currently in with `pwd`
+- List the contents of the directory that you are in with `ls`
+  - Depending on where you are, you should notice both blue and white text. The blue text is for directories and the white is for files. Green is used for executable files.
+- The cd command can be used to move into other directories or `cd ~` to return to your home directory.
+  - Example: `cd Downloads`
+- The cat command can used to display the contents of a file to the screen
+  - Example: `cat mycode.txt`
+- The file command can be used to give details about a file.
+  - Example: `file myresume.pdf`
+- The man command can be used in front of just about any other command to show you the manual pages for the command. This is useful for understanding the purpose of a command and any switches available (read options) for the command.
+  - Example: `man cat`
+
+With the above commands you should be able to navigate around the terminal. Now that we have that out of the way, we can move onto setting up our system.
+
+First off, we need to change the root password. Type the command below, hit enter, and type in your new password.  
+`passwd`
+
+Next, let's update the system. Kali is a [rolling distribution](https://en.wikipedia.org/wiki/Rolling_release) based off of [Debian](https://www.debian.org/) Linux and it will need to be updated pretty regularly. I recommend updating at least once a week and before you begin a new project. Debian distributions use a package manager called _apt_. To a Windows user, package managers are probably a foreign concept. While you can certainly go out to the web and download applications for Linux in a similar way that you can for Windows, Linux provides a more elegant solution by means of repositories. Repositories can be thought of (overly simplified) as centralized places for you to go and download software. Package managers provide a mechanism to both download and install applications from repositories. Use the command below to make sure your package manager has the most up-to-date list of the software available in Kali's repositories.  
+`apt update`  
+Once this command completes, it will let you know if you have an packages that are out of date. To update all of your out-of-date packages, use the command below.  
+`apt upgrade`  
+Type _y_ when you are prompted to see if you are sure that you want to install all of the updates.
+
+Now that we are up-to-date, lets install a basic tool for firewall management. We'll use the package manager to install it.  
+`apt install ufw`  
+UFW is a wrapper for Kali's default firewall _iptables_ (which is fairly difficult to work with). Remember that you can use the manual for UFW  
+`man ufw`  
+To turn the firewall on and make sure it starts at boot, type  
+`ufw enable`  
+To ensure that the firewall is running and set to run at boot, type  
+`ufw status`
+
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr-->
+## What about the others?
+
+Remnux and Metasploitable are both Linux virtual machines. &nbsp;Remnux can be thought of as the Blue Team counterpart to Kali. &nbsp;While Kali does have a few Blue Team tools, most are more generally considered Red Team tools. &nbsp;Metasploitable is an intentionally vulnerable Linux distribution that we can use for testing purposes. &nbsp;Lastly, we have the Windows VM. &nbsp;Each of these will be used in future posts, but for now we will leave them be for the most part.
+
+<!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr-->
+## Networking
+
+Importing and running the virtual machines is only a part of the setup for our lab. &nbsp;We also need to understand how networking is handled with our hypervisors. &nbsp;There are 3 basic ways to setup networking for each virtual machine.
+
+<!--kg-card-begin: markdown-->
+- **NAT** : Each VM is provided a non-routable IP by the hypervisor. The hypervisor then acts as a gateway/router to provide external network access. The external connection is facilitated through the IP address that your laptop has. This is analogous to your home setup with a router and home computer.
+- **Briged** : The virtual machine gets its own IP address in the same manner that your laptop did.
+- **Host Only** : This setting, is similar to the _NAT_ setting in that it provides the virtual machine a non-routable IP address. The difference is the hypervisor does not route connections externally. In practice, this means that your virtual machines with _Host Only_ set, can access each other, but not the Internet.
+<!--kg-card-end: markdown-->
+
+Each of these has its pros and cons. &nbsp;NAT is easiest to use and provides a level of protection for your virtual machine. &nbsp;Bridged allows you to access your virtual machine from sources external to your laptop (think setting up a web server on a virtual machine). Lastly, Host Only isolates your virtual machines from external sources. &nbsp;
+
+For the purposes of this lab, we are going to set each of our virtual machines into Host Only mode. This is ideal because it protects us from accidentally fat-fingering something and affecting things external to our lab.
+
+<!--kg-card-begin: markdown-->
+
+**How-To: Setup Networking for a Virtual Machine**  
+_Right-Click_ the virtual machine in your hypervisor.  
+_Click_ Settings-\>Networking  
+Select _Host-Only_
+
+<!--kg-card-end: markdown-->
+
+Power up your virtual machines and make sure that each one is on the same network.
+
+<!--kg-card-begin: markdown-->
+
+**Windows Command Prompt Command**  
+`ipconfig`
+
+**Linux Terminal Command**  
+`ifconfig`
+
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr-->
+## Snapshots
+
+For each machine you should setup a snapshot for you to revert to if you mess something up.
+
+<!--kg-card-begin: markdown-->
+1. _Right Click_ the virtual machine in your hypervisor
+2. Select _Snapshots_
+3. Click the _Camera_ icon at the top of the screen
+<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
+* * *
+<!--kg-card-end: hr-->
+
+At this point, you should have a nice base for your lab. &nbsp;Kali and Remnux provide a suite of tools for you to experiment with, while the Windows VM and Metasploitable both give platforms for testing against. &nbsp;In future posts we'll go over a few technologies and how to develop the right mindset for learning.
+
+## Additional Resources
+<!--kg-card-begin: markdown-->
+- [Building Virtual Labs E-Book](https://leanpub.com/avatar)
+<!--kg-card-end: markdown-->
