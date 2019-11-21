@@ -1,9 +1,27 @@
+<!DOCTYPE html>
 <html>
-<header><title>New Site Start</title></header>
-<body>
-Welcome to the new blog. Still a work in progress. 
-  
-  
-RSS Feed: https://0xd3fiant.github.io
-</body>
+	<head>
+		<title>D3fiant Security</title>
+	</head>
+	<body>
+		<nav>
+    		<ul>
+        		<li><a href="/">Home</a></li>
+	        	<li><a href="/about">About</a></li>
+        		<li><a href="/cv">CV</a></li>
+        		<li><a href="/blog">Blog</a></li>
+    		</ul>
+		</nav>
+		<div class="container">
+    		<div class="blurb">
+        		<h1>A little learning is a dangerous thing.</h1>
+				<p>Cybersecurity professional with a focus on adversarial simulation. Love for red teaming, reversing, and general learning</a></p>
+    		</div><!-- /.blurb -->
+		</div><!-- /.container -->
+		<footer>
+    		<ul>
+        		<li><a href="https://github.com/0xd3fiant">github.com/0xd3fiant</a></li>
+			</ul>
+		</footer>
+	</body>
 </html>
