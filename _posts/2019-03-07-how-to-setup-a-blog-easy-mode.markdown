@@ -1,12 +1,12 @@
 ---
-layout: post
+layout: default
 title: 'How-To: Setup a Blog Easy-Mode'
 date: '2019-03-07 16:03:53'
 tags:
 - general
 ---
 
-Once I decided to consolidate my leaning into a blog format, I needed a platform. &nbsp;I briefly considered one of the one-stop-shop solutions (i.e. wordpress.com), but being the nerd that I am, I wanted more control. &nbsp;I settled with a Digital Ocean Droplet, Docker, and Ghost. &nbsp;Below, I detail the setup that I used to get up and running (I've also included some of the other solutions that I considered).
+Once I decided to consolidate my learning into a blog format, I needed a platform. &nbsp;I briefly considered one of the one-stop-shop solutions (i.e. wordpress.com), but being the nerd that I am, I wanted more control. &nbsp;I settled with a Digital Ocean Droplet, Docker, and Ghost. &nbsp;Below, I detail the setup that I used to get up and running (I've also included some of the other solutions that I considered).
 
 <!--kg-card-begin: hr-->
 * * *
