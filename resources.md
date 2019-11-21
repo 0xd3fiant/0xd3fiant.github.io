@@ -6,6 +6,8 @@ layout: default
 
 A collection of resources on a variety of topics that I've found useful over the years (Continuously updated).
 
+---
+
 ##Tools - Meta Packages
 
 - [Kali Linux](https://www.kali.org/downloads/)
@@ -86,7 +88,7 @@ A collection of resources on a variety of topics that I've found useful over the
 
 - [Nuzzel](https://blog.nuzzel.com/)
   - I'm use twitter combined with Nuzzel as a pretty effective notification system for cyber news. Nuzzel connects to your twitter account and notifies you when 3 (adjustable threshold) or more people that you follow retweet the same thing.
-- [UNSUPERVISED LEARNING](https://danielmiessler.com/subscribe/)
+- [Unsupervised Learning](https://danielmiessler.com/subscribe/)
   - Bi-Weekly Newsletter for the top security news and technical news
 
 
