@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Resources
+title: blog
+theme: jekyll-theme-slate
 ---
 
 A collection of resources on a variety of topics that I've found useful over the years (Continuously updated).
