@@ -8,7 +8,7 @@ A collection of resources on a variety of topics that I've found useful over the
 
 ---
 
-##Tools - Meta Packages
+## Tools - Meta Packages
 
 - [Kali Linux](https://www.kali.org/downloads/)
   - Linux Distribution full of various security tools useful for penetration testing
@@ -20,7 +20,7 @@ A collection of resources on a variety of topics that I've found useful over the
   - Python Script to auto-magically handle installing and managing various security tools (mostly for pentesting)
 
 
-##Security Sources for Practice (CTFs, ect.)**
+## Security Sources for Practice (CTFs, ect.)**
 
 - [Hack the Box](https://www.hackthebox.eu/)
   - Capture the Flag site with vpn access to vulnerable network, crackme challenges, and reversing challenges.
@@ -31,7 +31,7 @@ A collection of resources on a variety of topics that I've found useful over the
 - [TryHackMe](https://tryhackme.com/)
 
 
-##Windows Tools
+## Windows Tools
 
 - [Windows VMs](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
   - Variety of windows virtual machines. They stop working after 30 days so create a snap shot and just revert. Password is _Passw0rd!_
@@ -44,7 +44,7 @@ A collection of resources on a variety of topics that I've found useful over the
   - Like task manager in windows but more useful.
   
   
-##Podcasts
+## Podcasts
 
 - [Paul's Security Weekly](https://securityweekly.com/)
 - [Security Now](https://twit.tv/shows/security-now)
@@ -53,7 +53,7 @@ A collection of resources on a variety of topics that I've found useful over the
 - [Troy Hunts Weekly](https://www.troyhunt.com/my-weekly-updates-are-now-available-as-an-audio-podcast/)
 
 
-##Twitter: Security Professionals
+## Twitter: Security Professionals
 
 - @arstechnica
 - @briankrebs
@@ -84,7 +84,7 @@ A collection of resources on a variety of topics that I've found useful over the
 - @vcuinfosec
 
 
-##News Sources
+## News Sources
 
 - [Nuzzel](https://blog.nuzzel.com/)
   - I'm use twitter combined with Nuzzel as a pretty effective notification system for cyber news. Nuzzel connects to your twitter account and notifies you when 3 (adjustable threshold) or more people that you follow retweet the same thing.
@@ -92,14 +92,14 @@ A collection of resources on a variety of topics that I've found useful over the
   - Bi-Weekly Newsletter for the top security news and technical news
 
 
-##Malware Analysis and Reverse Engineering Links
+## Malware Analysis and Reverse Engineering Links
 
 - [Linux Reverse Engineering Exercises](https://github.com/michalmalik/linux-re-101)
 - [File Headers](https://www.garykessler.net/library/file_sigs.html)
 - [Malware Repository](https://github.com/ytisf/theZoo)
 
 
-##Pentesting Resources
+## Pentesting Resources
 
 - [Pentesting Tools Cheat Sheet](https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/#introduction)
 - [Cobalt Strike](https://blog.cobaltstrike.com/2015/09/30/advanced-threat-tactics-course-and-notes/)
