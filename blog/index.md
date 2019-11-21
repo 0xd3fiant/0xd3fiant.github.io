@@ -1,9 +1,9 @@
 ---
 title: blog
 theme: jekyll-theme-slate
+layout:default
 ---
 
-	<h1>{{ page.title }}</h1>
 	<ul class="posts">
 
 	  {% for post in site.posts %}
