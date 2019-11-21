@@ -1,14 +1,10 @@
 ---
-title: blog
+title: Resources
 theme: jekyll-theme-slate
 layout: default
 ---
 
 A collection of resources on a variety of topics that I've found useful over the years (Continuously updated).
-
-<!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
 
 **Tools - Meta Packages**
 
@@ -20,9 +16,7 @@ A collection of resources on a variety of topics that I've found useful over the
   - Metapackage for Windows DFIR tools
 - [Pentesters Framework](https://github.com/trustedsec/ptf)
   - Python Script to auto-magically handle installing and managing various security tools (mostly for pentesting)
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
 
 **Security Sources for Practice (CTFs, ect.)**
 
@@ -33,9 +27,7 @@ A collection of resources on a variety of topics that I've found useful over the
 - [Metasploitable](https://sourceforge.net/projects/metasploitable/)
   - Virtual Machine with many vulnerabilities that have exploits available in metasploit.
 - [TryHackMe](https://tryhackme.com/)
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
 
 **Windows Tools**
 
@@ -48,10 +40,8 @@ A collection of resources on a variety of topics that I've found useful over the
   - [Good Sysmon Config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Process Hacker](https://processhacker.sourceforge.io/)
   - Like task manager in windows but more useful.
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
-
+  
+  
 **Podcasts**
 
 - [Paul's Security Weekly](https://securityweekly.com/)
@@ -59,13 +49,10 @@ A collection of resources on a variety of topics that I've found useful over the
 - [Red Team Podcast](https://redteams.net/podcast)
 - [Sans Internet Storm](https://isc.sans.edu/)
 - [Troy Hunts Weekly](https://www.troyhunt.com/my-weekly-updates-are-now-available-as-an-audio-podcast/)
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
 
 **Twitter: Security Professionals**
 
-<!--kg-card-begin: markdown-->
 - @arstechnica
 - @briankrebs
 - @chrisjohnriley
@@ -93,7 +80,7 @@ A collection of resources on a variety of topics that I've found useful over the
 - @trendlabs
 - @tripwire
 - @vcuinfosec
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 **News Sources**
 
@@ -101,17 +88,15 @@ A collection of resources on a variety of topics that I've found useful over the
   - I'm use twitter combined with Nuzzel as a pretty effective notification system for cyber news. Nuzzel connects to your twitter account and notifies you when 3 (adjustable threshold) or more people that you follow retweet the same thing.
 - [UNSUPERVISED LEARNING](https://danielmiessler.com/subscribe/)
   - Bi-Weekly Newsletter for the top security news and technical news
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+
 # Malware Analysis and Reverse Engineering Links
 
 - [Linux Reverse Engineering Exercises](https://github.com/michalmalik/linux-re-101)
 - [File Headers](https://www.garykessler.net/library/file_sigs.html)
 - [Malware Repository](https://github.com/ytisf/theZoo)
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
+
 # Pentesting Resources
 
 - [Pentesting Tools Cheat Sheet](https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/#introduction)
