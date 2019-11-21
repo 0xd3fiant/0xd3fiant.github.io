@@ -111,9 +111,9 @@ A collection of resources on a variety of topics that I've found useful over the
 - [Malware Repository](https://github.com/ytisf/theZoo)
 <!--kg-card-end: markdown--><!--kg-card-begin: hr-->
 * * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+<!--kg-card-end: hr-->
 # Pentesting Resources
 
 - [Pentesting Tools Cheat Sheet](https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/#introduction)
 - [Cobalt Strike](https://blog.cobaltstrike.com/2015/09/30/advanced-threat-tactics-course-and-notes/)
-<!--kg-card-end: markdown-->
+
