@@ -1,8 +1,6 @@
 ---
 layout: post
 title: Resources
-featured: true
-date: '2019-03-07 03:23:01'
 ---
 
 A collection of resources on a variety of topics that I've found useful over the years (Continuously updated).
