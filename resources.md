@@ -1,6 +1,7 @@
 ---
 title: blog
 theme: jekyll-theme-slate
+layout: default
 ---
 
 A collection of resources on a variety of topics that I've found useful over the years (Continuously updated).
