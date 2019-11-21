@@ -1,5 +1,5 @@
 theme: jekyll-theme-slate
 
 name: d3fiant security
-description: Cybersecurity professional with a focus on adversarial simulation. Love for red teaming, reversing, and general learning.
+description: config - Cybersecurity professional with a focus on adversarial simulation. Love for red teaming, reversing, and general learning.
 permalink: /blog/:year/:month/:day/:title
