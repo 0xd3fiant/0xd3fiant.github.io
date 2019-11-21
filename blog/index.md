@@ -1,5 +1,5 @@
 ---
-title: d3fiant's blog
+title: blog
 theme: jekyll-theme-slate
 ---
 
