@@ -3,7 +3,12 @@ title: Resources
 theme: jekyll-theme-slate
 layout: default
 ---
-
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
+  
 Collection of resources on a variety of topics that I've found useful over the years (Continuously updated).
 
 ----
