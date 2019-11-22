@@ -66,7 +66,7 @@ Let's dig in. Change into the Ghidra directory and run the ghidraRun script.
 
 It will take ghidra a few moments to load up. Once it does, you'll be presented with two windows: the project windows and the help window.In the project window, create a new project by clicking _File_-\>_New Project_. Name it _crack\_me_ (We'll use this project for all of the parts of the tutorial). Once, the project has been created,open the code viewer by clicking the dragon icon in the Tool Chest.
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-10-at-11.14.06-PM.png" class="kg-image"><figcaption>Click the Dragon to view the code for impossible_password.bin</figcaption></figure><!--kg-card-end: image-->
+![Toolchest](https://0xd3fiant.github.com/images/intro-to-ghidra-and-reversing/toolchest.png)
 
 The code view window will open.Import the _rev50\_linux64-bit_ file by clicking _File_-\>_Import_ and navigating to _rev50\_linux64-bit_. A prompt window will appear defaulting to the ELF format.Leave the default options and click _OK_. The next pop-up displays information on our file.Look it over and click _OK_. When asked if you would like to _Analyze_ _rev50\_linux64-bit_, click _Yes_. Another window will appear, leave the defaults and click _Analyze._
 
