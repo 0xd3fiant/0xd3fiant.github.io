@@ -12,7 +12,7 @@ layout: default
 <h2>{{ site.data.sitelist.docs_list_title }}</h2>
 <ul>
    {% for item in site.data.sitelist.docs %}
-      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+      <a href="{{ item.url }}">{{ item.title }}</a> - 
    {% endfor %}
 </ul>
 
