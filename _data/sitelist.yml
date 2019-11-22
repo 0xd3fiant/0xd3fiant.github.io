@@ -10,5 +10,8 @@ docs:
 - title: Blog
   url: /blog/index.md
   
+- title: Code
+  url: https://github.com/0xd3fiant
+  
 - title: About
   url: about.md
