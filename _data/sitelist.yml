@@ -2,16 +2,16 @@ docs_list_title: Site Pages
 docs:
 
 - title: Home
-  url: index.html
+  url: https://0xd3fiant.github.io/index.html
 
 - title: Resources
-  url: resources
+  url: https://0xd3fiant.github.io/resources
 
 - title: Blog
-  url: /blog/index
+  url: https://0xd3fiant.github.io//blog/index
   
 - title: Code
   url: https://github.com/0xd3fiant
   
 - title: About
-  url: about
+  url: https://0xd3fiant.github.io/about
