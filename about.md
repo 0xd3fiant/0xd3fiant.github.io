@@ -3,13 +3,6 @@ title: About
 theme: jekyll-theme-slate
 layout: default
 ---
-<nav>
-	<ul>
-		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
-	</ul>
-</nav>
-
-<h2>{{ site.data.sitelist.docs_list_title }}</h2>
 <ul>
    {% for item in site.data.sitelist.docs %}
       <a href="{{ item.url }}">{{ item.title }}</a> - 
