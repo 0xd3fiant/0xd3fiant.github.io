@@ -6,6 +6,12 @@ tags:
 - learningcyber
 - reversing_and_malware
 ---
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
+
 
 In the spirit of [Learning Cyber 2](https://d3fiant.io/learningcyber-2/) and understanding how things work, the next few Learning Cyber posts will focus on learning how a sample of malware works. To do this, we'll examine a piece of malware called _Jigsaw_.
 
