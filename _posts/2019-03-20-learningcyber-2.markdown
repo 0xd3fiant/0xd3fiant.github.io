@@ -1,9 +1,9 @@
 ---
 layout: default
-title: 'Learning Cyber 2: Learning to Understand Your Tool-Sets'
+title: Understand Your Tool-Sets
 date: '2019-03-20 02:08:10'
 tags:
-- learningcyber
+- understanding
 ---
 <nav>
 	<ul>
@@ -11,13 +11,12 @@ tags:
 	</ul>
 </nav>
 
-In [Learning Cyber 1](https://d3fiant.io/learningcyber-1/), I mentioned the importance of the _hacker_ mindset for a cybersecurity professional. Fundamental to the hacker mindset is the desire to understand how things work. In Learning Cyber 2 , we're going to focus on learning how our tool-sets work. &nbsp;These days, it's rare for people to take the time to learn the mechanics of what they're doing. We know what we need to do (_hit the report button_) and what the result will be (_report.pdf appears on our desktop_), but we have no idea how it all actually works. Understanding the _ **how** _, is crucial to the cyber professional. It allows us to troubleshoot, spot discrepancies, and improve our craft.
+In previous posts, I've mentioned the importance of the _hacker_ mindset for the cybersecurity professional. Fundamental to the hacker mindset is the desire to understand how things work. In today's post, we're going to focus on learning how our tool-sets work. These days, it's rare for people to take the time to learn the mechanics of what they're doing. We know what we need to do (_hit the report button_) and what the result will be (_report.pdf appears on our desktop_), but we have no idea how it all actually works. Understanding the _ **how** _, is crucial to the cyber professional. It allows us to troubleshoot, spot discrepancies, and improve our craft.
 
-In this post, we'll go over a common tool that's been used in cybersecurity for years: &nbsp;[Nmap](https://nmap.org/). We'll be using [Wireshark](https://www.wireshark.org/)to examine the network traffic generated for different scenarios. The requisite tools are pre-installed in our lab environment.
+In this post, we'll go over a common tool that's been used in cybersecurity for years: [Nmap](https://nmap.org/). We'll be using [Wireshark](https://www.wireshark.org/)to examine the network traffic generated for different scenarios. The requisite tools are pre-installed in our lab environment.
 
-<!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+----
+
 # Setup
 
 For Part 2, we'll be making use of the lab setup described in [Part 1](https://d3fiant.io/learningcyber-partone/), specifically the Kali and Metasploitable virtual machines (VMs). Make special note that both of the virtual machines have their networking set to _Host-Only_ mode. Power-on both VMs and logon. Metasploitable's default credentials are msfadmin:msfadmin (username:password).
@@ -32,9 +31,8 @@ Transition to the Kali VM and open a terminal. Check your IP address
 
 Now compare the IP addresses to ensure that they are both on the same network.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+----
+
 # Prep
 
 **Tools**
@@ -48,14 +46,14 @@ To understand our tool-sets, we'll need to understand some basic networking conc
 - Network Protocols are the guidelines and specifications for how applications communicate over a network. Further reading: [here](https://www.lifewire.com/definition-of-protocol-network-817949)
 - TCP (Transmission Control Protocol) is a connection-oriented network protocol. When we say "connection-oriented", we're essentially saying that TCP checks to ensure that each message (packet) is successfully received. This is in contrast to UDP (User Datagram Protocol), which is a connectionless protocol. Further reading: [here](https://searchnetworking.techtarget.com/definition/TCP)
 - Ports are numbers that are used to decide which application the network traffic is for. Further reading: [here](https://en.wikipedia.org/wiki/Port_(computer_networking))
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Nmap Analysis
 
 We'll begin with Nmap. In your Kali VM, open Wireshark by hitting the "Windows" key on your keyboard, typing _Wireshark_, and clicking the Wireshark icon. Click _Ok_ if you get a _Lua: Error duing loading:_ prompt.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/wireshark_start.PNG" class="kg-image"><figcaption>Wireshark Welcome Screen</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![wireshark](https://0xd3fiant.github.io/images/understanding-toolsets/wireshark_start.png)
 
 Click the blue fin on the top left (under File) to start a packet capture. Now that we have a packet capture going on, open a terminal to run Nmap. We'll start by scanning our Metasploitable machine with Nmap using mostly default Nmap options. Use the command below, but change 192.168.90.132 to the address of your Metasploitable VM.
 
@@ -65,13 +63,12 @@ The _-p 21_ option specifies that we only want to scan port 21 on the Metasploit
 
 When the command completes you'll see _Nmap done:_. Go ahead and stop your Wireshark capture by clicking the red square on the top left.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 At this point, we've captured the traffic for the Nmap scan. Unfortunately, there may be quite a bit of other traffic captured. No problem. We can filter the data by using the following _Display Filter_. Make sure to replace _192.168.90.137_ with the address of your Kali VM and _192.168.90.132_ with the address of your Metasploitable VM.  
 `ip.addr == 192.168.90.137 && ip.addr == 192.168.90.132`  
 The above command displays packets that contain both the ip address _192.168.90.137_ and _192.168.90.132_ (The && makes sure both are present). For more information on Wireshark display filters, click [here](https://wiki.wireshark.org/DisplayFilters). You should see an output similar to below.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/wireshark_nmap1.png" class="kg-image"><figcaption>Wireshark output for Nmap scan of port 21 with default options</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![wireshark_nmap1](https://0xd3fiant.github.io/images/understanding-toolsets/wireshark_nmap1.png)
 
 From the image above, you should see 3 packets. Remember from above that TCP is a _connection-oriented_ protocol. To establish a connection, the TCP protocol performs an initial handshake. The process involves three messages and is often referred to as the _three-way handshake_. The messages for the handshake are denoted below.
 
@@ -83,7 +80,6 @@ In the image above, we see a _SYN_ packet followed by a _SYN ACK_ packet (Examin
 
 So why do we see a _RST_ message instead of the expected _SYN ACK_? Remember that the purpose for our scan is to check the status of a port. The _SYN ACK_ sent by port 21 on Metasploitable signals that the port is open. At this point, Nmap has the information it needs and doesn't need the connection anymore so it cancels the it. Let's move on and examine some traffic for other port states.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 **Different Port States**  
 For this portion, we're going to examine traffic destined to 3 different ports: 19, 21, and 22. Go back to your Metasploitable VM and enable the firewall. Type in the _msfamin_ password when prompted.
@@ -108,19 +104,19 @@ Once the scan completes, go back to Wireshark and stop the capture (Red Stop Sig
 
 At this point you should see something similar to the image below.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/nmap_3_ports.png" class="kg-image"><figcaption>Wireshark output for Nmap scan of ports 19, 21, and 22</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![nmap_3_ports](https://0xd3fiant.github.io/images/understanding-toolsets/nmap_3_ports.png)
 
 In the above image, we can see 7 packets. The traffic for port 21 should look identical to our last scan. The port information is in the info section of each packet. You should see two numbers separated by an _-\>_. The first number is the source port, while the second number is the destination port. We're scanning port 21 on the Metasploitable VM, but the source port on the Kali VM will be something completely different, a high port that is not currently in use.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Let's look at the packets destined for port 22 next. As you can see, the Kali VM sends a _SYN_ packet to port 22 (Just as it did for port 21). Interestingly, the Metasploitable VM responds with a _RST ACK_ message. It does this to signal that there isn't a service (ie application) listening (think using) port 19. Since there isn't a service using port 19, the Metasploitable VM acknowledges that it received a message (the _ACK_ part) but tells the sender that it doesn't expect input on that port (the _RST_ part).
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Lastly, let's look at the 2 packets destined for port 22. Notice that both packets are sent from the Kali VM and that we don't see a response from the Metasploitable VM. Remember that we set the firewall on the Metasploitable VM to block everything but ports 19 and 21. Since port 22 is being blocked, the Metasploitable VM doesn't reply to the _SYN_ message sent by the Kali VM. When it doesn't receive a reply, Nmap attempts to send a second _SYN_ message. If it doesn't receive a response a second time, it marks the port as "Filtered" meaning that it believes a firewall is blocking the messages.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 **Nmap Connection Options**
 
@@ -132,13 +128,13 @@ To begin, start a new Wireshark capture. Next, perform a new Nmap scan. Remember
 
 Once the scan completes, stop the Wireshark capture. We'll use the same display filter as before.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/nmap3-1.png" class="kg-image"><figcaption>Nmap SYN scan of port 21</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![nmap3_1](https://0xd3fiant.github.io/images/understanding-toolsets/nmap3-1.png)
 
 If you look closely, you'll notice that the packets above look very similar to our initial scan of port 21. That's because Nmap uses a SYN scan by default. Let's examine another scan technique: the full connect scan. Start a new Wireshark capture and execute the following Nmap scan.
 
     nmap -sT -p 21 192.168.90.140
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/nmap4.png" class="kg-image"><figcaption>Nmap full connect scan of port 21</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![nmap4](https://0xd3fiant.github.io/images/understanding-toolsets/nmap4.png)
 
 Notice that the full connect scan resulted in 4 messages.
 
@@ -151,7 +147,7 @@ We see that the first two packets are similar to the _SYN_ scan that we performe
 
 Obviously, a full connect scan results in more traffic generated, which takes more time for the scan to complete and generates more noise. It does, however, offer a significant benefit. Since services expect traffic in a specific way (i.e. the completion of the 3-way handshake), some don't handle _SYN_ scans very well. In fact, there are some services that can completely crash when a _SYN_ scan is performed against them. For this reason, it's often safer to run a full connect scan. This is especially true in environments with older systems or software.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 **Nmap Service Scans**  
 Before we leave Nmap, we'll examine one more option: the service scan. Start a new Wireshark capture and perform the following Nmap scan.
@@ -162,11 +158,11 @@ Once the scan completes, stop the Wireshark capture.
 
 The Nmap service scan (-sV) attempts to perform a service discovery on each port that it discovers is open. See below for the difference between a regular Nmap scan and one with service discovery.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/nmap-terminal-service.png" class="kg-image"><figcaption>Difference between default Nmap Scan of port 21 and a service scan</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![nmap_terminal_service](https://0xd3fiant.github.io/images/understanding-toolsets/nmap-terminal-service.png)
 
 Now let's look at the Wireshark Capture for the Nmap service scan.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/nmap_21_service.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![nmap_21_service](https://0xd3fiant.github.io/images/understanding-toolsets/nmap_21_service.png)
 
 As you can see from Wireshark capture. Nmap has generated a lot more traffic than our first scan. To start with, look at the first 3 packet. Notice the message types:
 
@@ -184,7 +180,6 @@ Let's move on to the next three messages. Again, look at the message types:
 
 Now that Nmap knows that the port is open, it connects to the port to perform the service discovery. After the 3-way handshake is complete, you'll notice that the following packet's protocol is different. All of the previous packets show TCP for the protocol type, while this packet shows FTP. Not that the TCP connection is established, the SSH server sends an FTP protocol message with some information about the FTP server. For this scan, we get all of the "service" information from this packet.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 Let's move on to the following two packets (both sourcing from our Kali VM).
 
@@ -193,7 +188,6 @@ Let's move on to the following two packets (both sourcing from our Kali VM).
 
 At this point, Nmap has received the information that it needs and acknowledges the FTP packet with an _ACK_ message. Then it proceeds to terminate the connection with _FIN, ACK_ message. Up until this point, we haven't seen a _FIN_ message. A _FIN_ message is used to gracefully terminate the connection. It differs from _RST_ in a key way. _RST_ messages signal an immediate termination, while _FIN_ signals an intention to terminate. When a _FIN_ message is sent, the sender will still interact with the destination service until the session is terminated.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 The messages for the remaining packets are denoted below:
 
@@ -208,16 +202,17 @@ To start with, the FTP service responds to the _FIN ACK_ sent from the Kali VM w
 
 Compare this to the image below which shows a service scan for the SSH server on the Metasploitable VM. Notice that the SSH server on the Metasploitable VM responds to the _FIN ACK_ sent by the Kali VM with a _FIN ACK_ of its own. Kali responds one last time with an _ACK_ and the session completes.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/wireshark_ssh_service_scan.png" class="kg-image"><figcaption>Wireshark output for Nmap service scan against SSH</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+![wireshark_ssh_service_scan](https://0xd3fiant.github.io/images/understanding-toolsets/wireshark_ssh_service_scan.png)
+
+----
+
 # Closing
 
 In this post, we've covered a number of Nmap's options, but we've only examined a fraction of it's functionality. Hopefully, you'll use the techniques discussed here to explore some of Nmap's other functionality and continue with learning other tools that you use in your day-to-day. Thanks for reading.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 # Additional Resources
 
 - [Definitive Guide to Nmap](https://www.comparitech.com/net-admin/the-definitive-guide-to-nmap/)
 - [Nmap Book](https://nmap.org/book/toc.html)
-<!--kg-card-end: markdown-->
+
