@@ -1,9 +1,9 @@
 ---
 layout: default
-title: 'Learning Cyber 1: Setting Up A Lab'
+title: 'Setting Up A Lab'
 date: '2019-03-08 02:32:21'
 tags:
-- learningcyber
+- lab
 ---
 <nav>
 	<ul>
@@ -14,21 +14,21 @@ tags:
 
 > Nascar Professional couldn't be drivers without their car. &nbsp;It's the same with cybersecurity professionals and their laptop. - Cybersecurity Professional
 
-The quote above is from a colleague of mine, a guy that's been in the profession for 15 years, has more certs than you can shake a stick at, and experience in numerous high-stakes cyber positions. &nbsp;To say the least, he's been around the cyber block. &nbsp;This guy is constantly learning to better himself and has done a lot through self-study. &nbsp;
+The above quote is from a colleague of mine, a guy that's been in the profession for 15 years, has more certs than you can shake a stick at, and experience in numerous high-stakes cyber positions. To say the least, he's been around the cyber block. This guy is constantly learning to better himself and has done a lot through self-study. 
 
-Luckily for me, he's my mentor which presents opportunities to discuss a lot of topics, including "What makes a cybersecurity professional a cybersecurity _professional_". &nbsp;It's a tough question to answer and we've considered a lot of different aspects. Some people will tell you that a cyber pro needs a computer science degree or a list of fancy certifications. &nbsp;Others will tell you that experience makes the professional. &nbsp;Personally, I believe that these are all good data points/indicators, but for me the best indicator is mindset. &nbsp;
+Luckily for me, he's my mentor which presents opportunities to discuss a lot of topics, including "What makes a cybersecurity professional a cybersecurity _professional_". It's a tough question to answer and we've considered a lot of different aspects. Some people will tell you that a cyber pro needs a computer science degree or a list of fancy certifications. Others will tell you that experience makes the professional. Personally, I believe that these are all good data points/indicators, but for me the best indicator is mindset. 
 
-The _Hacker_ mindset. It's that desire to understand how things work. &nbsp;It's the relentless pursuit for that last piece of the puzzle. &nbsp;Unfortunately, understanding a person's mindset is difficult without spending significant time with him/her. Fortunately, a pretty decent idea for getting a glimpse into someone's mindset is to learn about his/her lab. &nbsp;The cyber pro's lab can tell you a lot about the desire to learn and the types of things that he or she has been working on. &nbsp;
+The _Hacker_ mindset. It's that desire to understand how things work. It's the relentless pursuit for that last piece of the puzzle. Unfortunately, understanding a person's mindset is difficult without spending significant time with him/her. Fortunately, a pretty decent idea for getting a glimpse into someone's mindset is to learn about his/her lab. The cyber pro's lab can tell you a lot about the desire to learn and the types of things that he or she has been working on. 
 
-This post is an introduction into creating a lab for yourself. &nbsp;It's about providing an environment where you can practice your tool-sets and techniques in a controlled environment. &nbsp;It gives you a space to experiment with new ideas, but just as important, it gives you a controlled space to gain a deeper understanding of technologies that we employ every day for our day jobs.   
+This post is an introduction into creating a lab for yourself. It's about providing an environment where you can practice your tool-sets and techniques in a controlled environment. It gives you a space to experiment with new ideas, but just as important, it gives you a controlled space to gain a deeper understanding of technologies that we employ every day for our day jobs.   
   
-Personally, I recommend setting up your lab on a laptop. Laptops give you a lot of flexibility in location. &nbsp;Obviously, there's a trade-off when compared to a traditional desktop computer. &nbsp;Laptops are more expensive and generally less powerful than their desktop counterparts, _but_ they are more portable. &nbsp;This is important because it lets you take your setup on the go, which is beneficial for training sessions, conferences, and training when not at home.
+Personally, I recommend setting up your lab on a laptop. Laptops give you a lot of flexibility in location. Obviously, there's a trade-off when compared to a traditional desktop computer. Laptops are more expensive and generally less powerful than their desktop counterparts, _but_ they are more portable. This is important because it lets you take your setup on the go, which is beneficial for training sessions, conferences, and training when not at home.
 
-You can get a decent setup for around $1200. Ideally, you want a decent processor, 500GB of storage (preferably ssd) and something with 16GB of ram or more. &nbsp;The ram requirements are particularly important because it allows you to run more virtual machines in parallel. &nbsp;
+You can get a decent setup for around $1200. Ideally, you want a decent processor, 500GB of storage (preferably ssd) and something with 16GB of ram or more. The ram requirements are particularly important because it allows you to run more virtual machines in parallel. 
 
-<!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Setup
 
 To start with, we are going to need a few things. Follow the links below, download and install one of the hypervisors, and download each of the virtual machines.
@@ -43,9 +43,9 @@ To start with, we are going to need a few things. Follow the links below, downlo
   - [Windows VM](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
     - Choose MSEdge on Win 10
   - [Metasploitable](https://sourceforge.net/projects/metasploitable/)
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Importing the VMs
 
 Now that we have a hypervisor installed and our virtual machines downloaded, we need to get them imported so we can use them. First unzip each of the zip archives that you downloaded (I prefer [7zip](https://www.7-zip.org/) for my archival needs). I recommend transferring the files somewhere other than your Downloads folder.
@@ -55,9 +55,9 @@ Now that we have a hypervisor installed and our virtual machines downloaded, we 
 3. Navigate to the directory where you saved your virtual machines.
 4. Select the .vmdk or .ova file
 5. Click _Open_
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Kali Linux Setup
 
 Start up your Kali virtual machine by _right clicking_ it in your hypervisor and selecting _run_ or _start_.
@@ -100,42 +100,42 @@ To turn the firewall on and make sure it starts at boot, type
 To ensure that the firewall is running and set to run at boot, type  
 `ufw status`
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
+----
+
 ## What about the others?
 
-Remnux and Metasploitable are both Linux virtual machines. &nbsp;Remnux can be thought of as the Blue Team counterpart to Kali. &nbsp;While Kali does have a few Blue Team tools, most are more generally considered Red Team tools. &nbsp;Metasploitable is an intentionally vulnerable Linux distribution that we can use for testing purposes. &nbsp;Lastly, we have the Windows VM. &nbsp;Each of these will be used in future posts, but for now we will leave them be for the most part.
+Remnux and Metasploitable are both Linux virtual machines. Remnux can be thought of as the Blue Team counterpart to Kali. While Kali does have a few Blue Team tools, most are more generally considered Red Team tools. Metasploitable is an intentionally vulnerable Linux distribution that we can use for testing purposes. Lastly, we have the Windows VM. Each of these will be used in future posts, but for now we will leave them be for the most part.
 
-<!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
+----
+
 ## Networking
 
-Importing and running the virtual machines is only a part of the setup for our lab. &nbsp;We also need to understand how networking is handled with our hypervisors. &nbsp;There are 3 basic ways to setup networking for each virtual machine.
+Importing and running the virtual machines is only a part of the setup for our lab. We also need to understand how networking is handled with our hypervisors. There are 3 basic ways to setup networking for each virtual machine.
 
-<!--kg-card-begin: markdown-->
+
 - **NAT** : Each VM is provided a non-routable IP by the hypervisor. The hypervisor then acts as a gateway/router to provide external network access. The external connection is facilitated through the IP address that your laptop has. This is analogous to your home setup with a router and home computer.
 - **Briged** : The virtual machine gets its own IP address in the same manner that your laptop did.
 - **Host Only** : This setting, is similar to the _NAT_ setting in that it provides the virtual machine a non-routable IP address. The difference is the hypervisor does not route connections externally. In practice, this means that your virtual machines with _Host Only_ set, can access each other, but not the Internet.
-<!--kg-card-end: markdown-->
 
-Each of these has its pros and cons. &nbsp;NAT is easiest to use and provides a level of protection for your virtual machine. &nbsp;Bridged allows you to access your virtual machine from sources external to your laptop (think setting up a web server on a virtual machine). Lastly, Host Only isolates your virtual machines from external sources. &nbsp;
+
+Each of these has its pros and cons. NAT is easiest to use and provides a level of protection for your virtual machine. Bridged allows you to access your virtual machine from sources external to your laptop (think setting up a web server on a virtual machine). Lastly, Host Only isolates your virtual machines from external sources. 
 
 For the purposes of this lab, we are going to set each of our virtual machines into Host Only mode. This is ideal because it protects us from accidentally fat-fingering something and affecting things external to our lab.
 
-<!--kg-card-begin: markdown-->
+
 
 **How-To: Setup Networking for a Virtual Machine**  
 _Right-Click_ the virtual machine in your hypervisor.  
 _Click_ Settings-\>Networking  
 Select _Host-Only_
 
-<!--kg-card-end: markdown-->
+
 
 Power up your virtual machines and make sure that each one is on the same network.
 
-<!--kg-card-begin: markdown-->
+
 
 **Windows Command Prompt Command**  
 `ipconfig`
@@ -143,24 +143,24 @@ Power up your virtual machines and make sure that each one is on the same networ
 **Linux Terminal Command**  
 `ifconfig`
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
+----
+
 ## Snapshots
 
 For each machine you should setup a snapshot for you to revert to if you mess something up.
 
-<!--kg-card-begin: markdown-->
+
 1. _Right Click_ the virtual machine in your hypervisor
 2. Select _Snapshots_
 3. Click the _Camera_ icon at the top of the screen
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
 
-At this point, you should have a nice base for your lab. &nbsp;Kali and Remnux provide a suite of tools for you to experiment with, while the Windows VM and Metasploitable both give platforms for testing against. &nbsp;In future posts we'll go over a few technologies and how to develop the right mindset for learning.
+----
+
+
+At this point, you should have a nice base for your lab. Kali and Remnux provide a suite of tools for you to experiment with, while the Windows VM and Metasploitable both give platforms for testing against. In future posts we'll go over a few technologies and how to develop the right mindset for learning.
 
 ## Additional Resources
-<!--kg-card-begin: markdown-->
+
 - [Building Virtual Labs E-Book](https://leanpub.com/avatar)
-<!--kg-card-end: markdown-->
+
