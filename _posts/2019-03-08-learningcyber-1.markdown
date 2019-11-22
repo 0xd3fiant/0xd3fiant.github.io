@@ -1,10 +1,16 @@
 ---
-layout: post
+layout: default
 title: 'Learning Cyber 1: Setting Up A Lab'
 date: '2019-03-08 02:32:21'
 tags:
 - learningcyber
 ---
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
+
 
 > Nascar Professional couldn't be drivers without their car. &nbsp;It's the same with cybersecurity professionals and their laptop. - Cybersecurity Professional
 
