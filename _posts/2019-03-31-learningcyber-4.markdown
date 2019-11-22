@@ -1,11 +1,17 @@
 ---
-layout: post
+layout: default
 title: 'Learning Cyber 4: Introduction to Malware Analysis Part 2'
 date: '2019-03-31 21:27:52'
 tags:
 - learningcyber
 - reversing_and_malware
 ---
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
+
 
 In [Learning Cyber 3](https://d3fiant.io/learningcyber-3/), we started analyzing a sample of the _Jigsaw_ malware. Now, we'll continue to explore _Jigsaw_ using _Dynamic Analysis_ in the Windows environment that we setup in the last post.
 
