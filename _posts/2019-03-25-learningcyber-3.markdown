@@ -1,9 +1,8 @@
 ---
 layout: post
-title: 'Learning Cyber 3: Introduction to Malware Analysis Part 1'
+title: Introduction to Malware Analysis Part 1
 date: '2019-03-25 00:50:03'
 tags:
-- learningcyber
 - reversing_and_malware
 ---
 <nav>
@@ -15,16 +14,14 @@ tags:
 
 In the spirit of [Learning Cyber 2](https://d3fiant.io/learningcyber-2/) and understanding how things work, the next few Learning Cyber posts will focus on learning how a sample of malware works. To do this, we'll examine a piece of malware called _Jigsaw_.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+----
+
 # IMPORTANT
 
 We'll be analyzing a live sample of Ransomware called _Jigsaw_. You need to be extremely careful to prevent accidental collateral damage. Once you have the Malware downloaded make sure that you **only open and run the malware in a virtual machine with networking turned off**.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+----
+
 # Setup
 
 Before we start, we need to grab some necessary tools for analysis.
@@ -45,7 +42,6 @@ Once the installer downloads, double click it to install.
 
 We'll use this setup for the analysis.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 **Obtaining Malware**
 
@@ -64,19 +60,16 @@ In your Kali VM, open a terminal and type the following commands:
 3. Clone _theZoo_ repository from github
 4. Move into _theZoo_ folder
 5. Install requirements for _theZoo_ (You can ignore any errors)
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 **What did we just do?**  
 The commands above downloaded a tool called _theZoo_, a database of live malware samples. Each sample is encrypted and zipped to prevent accidental execution.
 
 To download _theZoo_, we used a tool called [git](https://git-scm.com). _Git_ is a version control tool. Essentially _git_ gives you a way to save versions of a project. That way, if you break something, you can revert back to a previous version. It also gives people a convenient way to share code or software.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 **Transferring the Malware**  
 Since we're using the Windows VM for the analysis, we need to get the Malware transfered from the Kali VM to the Windows VM. To do this, change the networking settings on both VMs to _Host-Only_. Lastly, disable _Sharing_ on the Windows VM (_Settings -\> Sharing -\> Uncheck Enable Shared Folders_).
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 On the Kali VM, open a terminal and run the following commands:
 
@@ -90,7 +83,7 @@ On the Kali VM, open a terminal and run the following commands:
 2. Take note of your IP Address
 3. Make sure that port 80 is accessible through the firewall.
 4. Create a temporary web server to serve up the folder that _Jigsaw_ is in. This will allow you to access the Jigsaw binary from the Windows VM.
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 On the Windows VM, turn off Windows protections.
 
@@ -117,14 +110,12 @@ In the Kali VM, go back into the terminal (where you have the python server runn
 
 Lastly, disable the network interface on the Windows VM by going to _Settings-\>Network Adapter_. Uncheck "Connect Network Adapter".
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 # Snapshot
 
 Before we begin the analysis, take a snapshot of the Windows VM. Anytime you're analyzing malware, it's important to create a snapshot before the malware is detonated (run). In this case, it's especially important because this sample will encrypt all of the files on the system it runs on.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
 # Prep for Analysis
 
 Now that the Analysis environment is setup, we need to unzip the the malware. Right click _Ransomware.Jigsaw.zip_ and select _Extract All.._ The password to unzip the archive is _infected_.
@@ -139,25 +130,24 @@ Before we begin, let's go over some basic terminology:
 
 There are benefits to both strategies and often both are used to analyze malware. For this exercise, we'll use _Static Analysis_ to glean some information before we analyze using _Dynamic Analysis_. When the malware is actually running, there can be alot going on. Performing _Static_ before _Dynamic_ analysis can guide _Dynamic Analysis_.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 # Basic Static Analysis with PEStudio
 
 Open PEStudio by double clicking PEStudio.exe. We'll use PEStudio to examine Jigsaw.exe by dragging it into the main PEStudio window.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-24-at-4.31.07-PM.png" class="kg-image"><figcaption>PEStudio Jigsaw.exe</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![jigsaw_pestudio](https://0xd3fiant.github.io/images/malware_analysis/pestudio_jigsaw.png)
 
 As you can see, PEStudio has given us a wealth of information about the Jigsaw application. We can use it to get a general idea of what Jigsaw might do when running.
 
 Let's start with the version section.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-24-at-4.58.08-PM.png" class="kg-image"><figcaption>PEStudio JigSaw version information</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![jigsaw_pestudio_version](https://0xd3fiant.github.io/images/malware_analysis/pestudio_jigsaw_version.png)
 
 **PEStudio Version Section**  
 In the version section there's some general information about the executable. Notice the three hash types: md5, sha1, and sha256. Often, Malware can be identified using a hash of the malware. The hash is produced by running the malware through an algorithm to generate a unique (for the most part) value. Every time that that sample of malware is out through the algorithm, it results in the same unique value (Even if its a copy of the malware from another system). For more information on Hashing click [here](https://medium.com/tech-tales/what-is-hashing-6edba0ebfa67) (highly recommended).
 
 While the hash can be used to identify a piece of malware, it isn't a fool-proof technique. All that's needed to change the hash for a specific sample of malware is to make a small change in the code of the malware. Note that renaming the malware will _not_ change the hash for it.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 Next examine the following attributes:
 
@@ -171,16 +161,15 @@ The attributes above represent meta-data (data about data). When an application 
 
 What about the _Firefox_ attributes? From these, we'll make an assumption that the original malware was designed to look like _Firefox_ in an attempt to trick its victims.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 Let's move on to the the Strings section.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-24-at-6.10.54-PM.png" class="kg-image"><figcaption>PEStudio Jigsaw Strings</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![jigsaw_pestudio_strings](https://0xd3fiant.github.io/images/malware_analysis/pestudio_jigsaw_strings.png)
 
 **PEStudio Strings Section**  
 There are alot of different applications to get the strings from a binary and one of them is PEStudio, but what does "Getting Strings" from a binary mean? Getting the strings from a binary extracts strings from the binary (duh). Let's look a little closer at a binary to get a better understanding of what I mean.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-24-at-6.56.14-PM.png" class="kg-image"><figcaption>Jigsaw opened in hexeditor</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![hexeditor_jigsaw](https://0xd3fiant.github.io/images/malware_analysis/hexeditor_jigsaw.png)
 
 In the image above, I've opened Jigsaw in a hexeditor on my Kali VM. In its most basic form, an application is just a series of 1s and 0s (binary). Since it's really difficult to examine a bunch of 1s and 0s, we often represent the values in hex. Hex is a base-16 number system, while binary is a base-2 number system. Since hex is base-16, you can represent more information per character making it somewhat easier to read. For more information on hex see [here](https://whatis.techtarget.com/definition/hexadecimal).
 
@@ -198,7 +187,6 @@ and some random letters
 
 The longer strings are likely represent actual ascii text. The single letters are likely just hex values that happen to represent ascii but are really part of an instruction.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 Let's continue on to examine some of the strings that PEStudio found in Jigsaw.
 
@@ -214,16 +202,14 @@ Lastly, notice some strings that end in .exe:
 
 - firefox.exe -\> May have to do with the version information
 - Drbpx.exe -\> Sounds a lot like Dropbox. Maybe the application uses Dropbox for something or maybe it tries to look like Dropbox.
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Lastly, the Strings window in PEStudio has some tabs at the top. Click the _Blacklist_ tab and examine the strings that are blacklisted.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-24-at-7.17.57-PM.png" class="kg-image"><figcaption>PEStudio Blacklisted Strings for Jigsaw</figcaption></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+![jigsaw_pestudio_blacklist](https://0xd3fiant.github.io/images/malware_analysis/pestudio_jigsaw_blacklist_strings.png)
 
 In the above image, we can see a number of Strings that PEStudio has marked as "blacklist", meaning that they could represent something nefarious. Specifically, notice the _Encrypt File_ and _Decrypt File_. These suggest that the malware may perform some encryption (Makes sense since Jigsaw is Ransomware).
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
 
 We've just scratched the surface with PEStudio, but we've learned a lot about our malware sample. I'll leave the rest of PEStudio for future investigation. Look around and see what else you can learn about Jigsaw. In the next post, we'll begin _Dynamic Analysis_ of Jigsaw.
 
-<!--kg-card-end: markdown-->
