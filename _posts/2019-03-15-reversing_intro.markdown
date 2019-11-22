@@ -1,20 +1,25 @@
 ---
-layout: post
-title: 'Intro to Reversing Part 1: Introduction and Ghidra'
+layout: default
+title: 'Introduction to Ghidra and Reversing'
 date: '2019-03-15 04:44:16'
 tags:
 - reversing_and_malware
 ---
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
 
 As many of you have probably heard, the NSA recently released their reverse engineering tool [Ghidra](https://ghidra-sre.org/) to the public. Ghidra promises a host of features, including: cross-platform support (Windows, Mac, Linux), disassembly, assembly, decompilation, etc. I'm not a reverse engineer by trade, but it's something that I enjoy as a hobby.
 
-I've been wanting to test out Ghidra and I've also had some questions about getting into reverse engineering, so I decided to kill two birds with one stone and create an _Intro to Reversing_ post using Ghidra. There are a lot of reverse engineering challenges available on the Internet (See [Link Farm](https://d3fiant.io/resources/)). &nbsp;I chose a challenge off of [CrackMes](https://crackmes.one/): &nbsp;[easy\_reverse](https://crackmes.one/crackme/5b8a37a433c5d45fc286ad83). &nbsp;For the reversing, we'll use the Kali VM that we setup [here](https://d3fiant.io/setting-up-a-lab/).
+I've been wanting to test out Ghidra and I've also had some questions about getting into reverse engineering, so I decided to kill two birds with one stone and create an _Intro to Reversing_ post using Ghidra. There are a lot of reverse engineering challenges available on the Internet (See [Link Farm](https://d3fiant.io/resources/)).I chose a challenge off of [CrackMes](https://crackmes.one/):[easy\_reverse](https://crackmes.one/crackme/5b8a37a433c5d45fc286ad83).For the reversing, we'll use the Kali VM that we setup [here](https://d3fiant.io/setting-up-a-lab/).
 
-<!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
+----
+
 ## Initial Setup
-<!--kg-card-begin: markdown-->
+
 
 To start off with, download and extract Ghidra. Ghidra is written in Java, so make sure you have OpenJDK 11 installed on your system  
 `java --version`  
@@ -22,85 +27,85 @@ If you don't have Java installed, you can install it using
 `apt install default-jdk`  
 Depending on which distribution of Linux you are using, the default version of Java may be less than OpenJDK 11. Refer to your distribution's documentation on how to obtain a newer version if you aren't running Kali.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Now that you have Ghidra, you need to download the challenge [easy\_reverse](https://crackmes.one/crackme/5b8a37a433c5d45fc286ad83) and unzip (Password is crackmes.one).
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr-->
+
+----
+
 ## Tool-set Introduction
 
 Before we begin, let's go over some basics of the tools that we will be using: Ghidra and EDB (Evan's Debugger). We won't get into EDB until Part 2, but it we'll go ahead and discuss it here.
 
-<!--kg-card-begin: markdown-->
+
 
 **Ghidra**  
 Like I mentioned earlier, Ghidra is a reversing tool developed by the NSA. Specifically, Ghidra offers disassembly and decompilation. [Disassemblers](https://en.wikipedia.org/wiki/Disassembler) are useful for taking the machine code from an executable and translating it into assembly language. For a quick intro into architecture and assembly language, check [here](https://www.tutorialspoint.com/assembly_programming/assembly_introduction.htm). Once we have access to the assembly code, we can begin the process of reversing. A disassembler offers us a way to view the assembly code, make adjustments (called patching), and generally examine the functionality of an application. Disassemblers can provide other functionality as well. Additional functionality can include things like scripting and decompilation. A [decompiler](https://en.wikipedia.org/wiki/Decompiler) is similar to a disassembler, but it translates into a higher level language, like c. Assembly language is very basic, requires many more lines of code, and can be pretty difficult to read. A higher level language, like c, can be much easier to read.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 **EDB**  
 Evan's Debugger (EDB) is a debugger included in the default Kali installation. By translating a binary application's machine code into assembly code, debuggers provide similar functionality to a disassembler. The key difference between a debugger and a disassembler is code execution. A [debugger](https://en.wikipedia.org/wiki/Debugger) allows you to run through an application's code in a controlled way. Of course, debuggers have uses outside of reversing i.e. debugging. Why use one over the other? One reason is that reversing tools that offer disassembly often include additional functionality to aid in reversing (see above). Additionally, it's often beneficial to examine code without running (especially true when examining malware). We'll be using both Ghidra and EDB in this tutorial. Ghidra's decompilation makes things easier to decipher and EDB allows us to watch information as the application executes.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 There is one last thing worth noting. Reversing tools (disassemblers, decompilers, debuggers, etc.) are architecture and operating system specific. Because the machine code (instructions) differ between architectures, the disassembly and decompilation is different. Each tool will list the supported architectures and operating systems in its documentation. In our case, Ghidra supports a huge list of architectures and three operating systems (Windows, Linux, and MacOSX). EDB is a Linux application and supports a smaller set of architectures, but does support ours.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Ghidra Setup
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Let's dig in. Change into the Ghidra directory and run the ghidraRun script.  
 `cd ghidra`  
 `./ghidraRun`
 
-<!--kg-card-end: markdown-->
 
-It will take ghidra a few moments to load up. Once it does, you'll be presented with two windows: the project windows and the help window. &nbsp;In the project window, create a new project by clicking _File_-\>_New Project_. Name it _crack\_me_ (We'll use this project for all of the parts of the tutorial). Once, the project has been created, &nbsp;open the code viewer by clicking the dragon icon in the Tool Chest.
+
+It will take ghidra a few moments to load up. Once it does, you'll be presented with two windows: the project windows and the help window.In the project window, create a new project by clicking _File_-\>_New Project_. Name it _crack\_me_ (We'll use this project for all of the parts of the tutorial). Once, the project has been created,open the code viewer by clicking the dragon icon in the Tool Chest.
 
 <!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="/content/images/2019/03/Screen-Shot-2019-03-10-at-11.14.06-PM.png" class="kg-image"><figcaption>Click the Dragon to view the code for impossible_password.bin</figcaption></figure><!--kg-card-end: image-->
 
-The code view window will open. &nbsp;Import the _rev50\_linux64-bit_ file by clicking _File_-\>_Import_ and navigating to _rev50\_linux64-bit_. A prompt window will appear defaulting to the ELF format. &nbsp;Leave the default options and click _OK_. The next pop-up displays information on our file. &nbsp;Look it over and click _OK_. When asked if you would like to _Analyze_ _rev50\_linux64-bit_, click _Yes_. Another window will appear, leave the defaults and click _Analyze._
+The code view window will open.Import the _rev50\_linux64-bit_ file by clicking _File_-\>_Import_ and navigating to _rev50\_linux64-bit_. A prompt window will appear defaulting to the ELF format.Leave the default options and click _OK_. The next pop-up displays information on our file.Look it over and click _OK_. When asked if you would like to _Analyze_ _rev50\_linux64-bit_, click _Yes_. Another window will appear, leave the defaults and click _Analyze._
 
-<!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Analysis
-<!--kg-card-end: markdown-->
 
-To start off with, let's see what this file does. &nbsp;Use the terminal to run _rev50\_linux64-bit_ by typing:
 
-<!--kg-card-begin: markdown-->
+To start off with, let's see what this file does.Use the terminal to run _rev50\_linux64-bit_ by typing:
+
+
 
 `./rev50_linux64-bit`
 
-<!--kg-card-end: markdown-->
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_usage-1.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_usage-1.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 We see a similiar result when we add an argument.  
 `./rev50_linux64-bit password`
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev_password_try.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev_password_try.png" class="kg-image"></figure><!--kg-card-end: image-->
+----
+
 # Ghidra
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Go back to the Ghidra code viewer and you will see a host of information.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_codebrowser.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_codebrowser.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 When I first started reversing, I only knew about debuggers and had little knowledge of reversing. My initial strategy involved single stepping (running one instruction at a time) through the code and evaluating as I went (_Do Not Do This_). Even though I had a decent understanding of assembly language, this was a long and arduous process for even the smallest applications. Over time I learned that some initial analysis could help guide me.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 To start our analysis, let's try to determine some of the functionality of the application by examining the application's imports. To do so, look at the _Symbols_ window on the left side of the codeviewer. To find the imports, drill down into _Imports-\>External_.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_imports.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_imports.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 Take note of the following imports:
 
@@ -108,24 +113,24 @@ Take note of the following imports:
 - puts
 - strlen  
 Remember that our application displays information on the screen and accepts arguments. Each of these is interesting, but let's start with _printf_. Double click _printf_ in the _Symbols_ menu. Notice that the code view has changed.
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_initial.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_initial.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 While interesting, we ideally want to find where _printf_ is used during execution. You can jump to places that _printf_ is referenced by double clicking one of the references to the right of _XREF_ (in green). Do this and continue doing it until you find a location in code where _printf_ is used (Hint: watch the decompile window until you see something similar to below). You can go back to the previous screen by using the back button (blue left arrow at the top left of the screen).
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_initial_decompile.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_initial_decompile.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 As you can see above, it looks like we've found the code segment that prints the usage message. Lets continue looking around for what triggers this piece of code. Do this by clicking through the _XREFs_ for the usage function. You'll want to continue looking around until you find the code below.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_fail.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_decompile.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_fail.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_decompile.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 Now that we have the code that calls the usage function. Let's examine the code.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 Look at the first few lines of code before the line with  
 `puts("Nice Job!");`
 
-<!--kg-card-end: markdown--><!--kg-card-begin: markdown-->
+
 
 The code starts with a check to see if the length of _iParm1_ is equal to two.  
 `if (iParm1 == 2)`
@@ -146,24 +151,23 @@ that has a length of 10
 and has an _@_ symbol in the 5th position.  
 `if (*(char *)(puParm2\[1] + 4) == '@' {`
 
-<!--kg-card-end: markdown-->
+
 
 Using our logic from above, we can make an educated guess that the program will show us the "Nice Job" message if we supply an argument that is 10 characters long and has an @ symbol in the 5th position (ie. _aaaa@aaaaa_).
 
-<!--kg-card-begin: markdown-->
+
 
 Try it out  
 `./rev50_inux64-bit aaaa@aaaaa`
 
-<!--kg-card-end: markdown--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_solution.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: markdown-->
+<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_solution.png" class="kg-image"></figure><!--kg-card-end: image-->
 
 Success! A perceptive reader will note that bbbb@bbbbb or any combination of characters that has the @ symbol in the 5th position and is 10 characters long will work.
 
-<!--kg-card-end: markdown--><!--kg-card-begin: hr-->
-* * *
-<!--kg-card-end: hr--><!--kg-card-begin: markdown-->
+
+----
+
 # Closing
 
 Congratulations on completing your first challenge! For this exercise, we were able to determine everything we needed with relative ease using Ghidra. In Part 2, we'll start with Ghidra and pivot into EDB for our solution.
 
-<!--kg-card-end: markdown-->
