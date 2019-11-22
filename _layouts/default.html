@@ -12,6 +12,12 @@
 
 {% seo %}
   </head>
+	
+<ul>
+   {% for item in site.data.sitelist.docs %}
+      <a href="{{ item.url }}">{{ item.title }}</a> - 
+   {% endfor %}
+</ul>
 
   <body>
     <div id="container">
