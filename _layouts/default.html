@@ -36,6 +36,14 @@
 	{% endif %}
         </section>
         <hr>
+	      
+	 <ul>
+	  {% for item in site.data.sitelist.docs %}
+	  <a href="{{ item.url }}">{{ item.title }}</a> - 
+	  {% endfor %}
+        </ul>
+        {% include nav.html %}
+	      
         <section id="main_content">
           {{ content }}
         </section>
@@ -50,12 +58,7 @@
       </div>
     </div>
 
-    <ul>
-	{% for item in site.data.sitelist.docs %}
-	<a href="{{ item.url }}">{{ item.title }}</a> - 
-	{% endfor %}
-    </ul>
-    {% include nav.html %}
+   
     {% if site.google_analytics %}
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
