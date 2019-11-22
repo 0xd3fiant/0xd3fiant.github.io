@@ -84,12 +84,13 @@ To start off with, let's see what this file does.Use the terminal to run _rev50\
 
 
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_usage-1.png" class="kg-image"></figure><!--kg-card-end: image-->
+![rev50_useage](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_usage-1.png)
 
 We see a similiar result when we add an argument.  
 `./rev50_linux64-bit password`
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev_password_try.png" class="kg-image"></figure><!--kg-card-end: image-->
+![rev50_passwd](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev_password_try.png)
+
 ----
 
 # Ghidra
@@ -97,7 +98,7 @@ We see a similiar result when we add an argument.
 
 Go back to the Ghidra code viewer and you will see a host of information.
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_codebrowser.png" class="kg-image"></figure><!--kg-card-end: image-->
+![Code_Browser](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_codebrowser.png)
 
 When I first started reversing, I only knew about debuggers and had little knowledge of reversing. My initial strategy involved single stepping (running one instruction at a time) through the code and evaluating as I went (_Do Not Do This_). Even though I had a decent understanding of assembly language, this was a long and arduous process for even the smallest applications. Over time I learned that some initial analysis could help guide me.
 
@@ -105,7 +106,7 @@ When I first started reversing, I only knew about debuggers and had little knowl
 
 To start our analysis, let's try to determine some of the functionality of the application by examining the application's imports. To do so, look at the _Symbols_ window on the left side of the codeviewer. To find the imports, drill down into _Imports-\>External_.
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_imports.png" class="kg-image"></figure><!--kg-card-end: image-->
+![rev50_imports](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_imports.png)
 
 Take note of the following imports:
 
@@ -113,15 +114,17 @@ Take note of the following imports:
 - puts
 - strlen  
 Remember that our application displays information on the screen and accepts arguments. Each of these is interesting, but let's start with _printf_. Double click _printf_ in the _Symbols_ menu. Notice that the code view has changed.
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_initial.png" class="kg-image"></figure><!--kg-card-end: image-->
+
+![printf_initial](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_printf_initial.png)
 
 While interesting, we ideally want to find where _printf_ is used during execution. You can jump to places that _printf_ is referenced by double clicking one of the references to the right of _XREF_ (in green). Do this and continue doing it until you find a location in code where _printf_ is used (Hint: watch the decompile window until you see something similar to below). You can go back to the previous screen by using the back button (blue left arrow at the top left of the screen).
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_initial_decompile.png" class="kg-image"></figure><!--kg-card-end: image-->
+![printf_initial_decompile](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_printf_initial_decompile.png)
 
 As you can see above, it looks like we've found the code segment that prints the usage message. Lets continue looking around for what triggers this piece of code. Do this by clicking through the _XREFs_ for the usage function. You'll want to continue looking around until you find the code below.
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_printf_fail.png" class="kg-image"></figure><!--kg-card-end: image--><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_decompile.png" class="kg-image"></figure><!--kg-card-end: image-->
+![rev50_printf_fail](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_printf_fail.png)
+![rev50_decompile](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_decompile.png)
 
 Now that we have the code that calls the usage function. Let's examine the code.
 
@@ -160,7 +163,7 @@ Using our logic from above, we can make an educated guess that the program will 
 Try it out  
 `./rev50_inux64-bit aaaa@aaaaa`
 
-<!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="/content/images/2019/03/rev50_solution.png" class="kg-image"></figure><!--kg-card-end: image-->
+![rev50_solution](https://0xd3fiant.github.io/images/intro-to-ghidra-and-reversing/rev50_solution.png)
 
 Success! A perceptive reader will note that bbbb@bbbbb or any combination of characters that has the @ symbol in the 5th position and is 10 characters long will work.
 
