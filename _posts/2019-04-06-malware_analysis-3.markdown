@@ -7,7 +7,9 @@ tags:
 ---
 <nav>
 	<ul>
-		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+   		{% for item in site.data.sitelist.docs %}
+      			<a href="{{ item.url }}">{{ item.title }}</a> - 
+   		{% endfor %}
 	</ul>
 </nav>
 
