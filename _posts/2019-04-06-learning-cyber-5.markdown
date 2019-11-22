@@ -1,11 +1,16 @@
 ---
-layout: post
+layout: default
 title: 'Learning Cyber 5: Introduction to Malware Analysis Part 3'
 date: '2019-04-06 04:01:18'
 tags:
 - learningcyber
 - reversing_and_malware
 ---
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
 
 In [Learning Cyber 3](https://d3fiant.io/learningcyber-3/) and [Learning Cyber 4](https://d3fiant.io/learningcyber-4/), we analyzed a sample of the _Jigsaw_ malware. Today, we'll continue with the malware analysis study by examining network connections. During our analysis, we'll make use of the same environment that we did in the last two posts.
 
