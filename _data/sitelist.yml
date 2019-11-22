@@ -5,13 +5,13 @@ docs:
   url: index.html
 
 - title: Resources
-  url: resources.md
+  url: resources
 
 - title: Blog
-  url: /blog/index.md
+  url: /blog/index
   
 - title: Code
   url: https://github.com/0xd3fiant
   
 - title: About
-  url: about.md
+  url: about
