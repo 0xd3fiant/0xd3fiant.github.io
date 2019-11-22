@@ -1,10 +1,15 @@
 ---
-layout: post
+layout: default
 title: 'Learning Cyber 2: Learning to Understand Your Tool-Sets'
 date: '2019-03-20 02:08:10'
 tags:
 - learningcyber
 ---
+<nav>
+	<ul>
+		<a href="/">Home</a> - <a href="/resources">Resources</a> - <a href="/blog">Blog</a> - <a href="/about">About</a>
+	</ul>
+</nav>
 
 In [Learning Cyber 1](https://d3fiant.io/learningcyber-1/), I mentioned the importance of the _hacker_ mindset for a cybersecurity professional. Fundamental to the hacker mindset is the desire to understand how things work. In Learning Cyber 2 , we're going to focus on learning how our tool-sets work. &nbsp;These days, it's rare for people to take the time to learn the mechanics of what they're doing. We know what we need to do (_hit the report button_) and what the result will be (_report.pdf appears on our desktop_), but we have no idea how it all actually works. Understanding the _ **how** _, is crucial to the cyber professional. It allows us to troubleshoot, spot discrepancies, and improve our craft.
 
