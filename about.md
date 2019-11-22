@@ -9,6 +9,13 @@ layout: default
 	</ul>
 </nav>
 
+<h2>{{ site.data.sitelist.docs_list_title }}</h2>
+<ul>
+   {% for item in site.data.sitelist.docs %}
+      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+   {% endfor %}
+</ul>
+
 Just a cybersecurity guy with a love for learning new things. I'm passionate about red teaming, reversing, and analysis. I keep a blog to help remember the things that I've learned and hopefully, to help others as they learn.
 
 > A little learning is a dangerous thing;  
