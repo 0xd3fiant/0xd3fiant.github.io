@@ -13,11 +13,6 @@
 {% seo %}
   </head>
 	
-<ul>
-   {% for item in site.data.sitelist.docs %}
-      <a href="{{ item.url }}">{{ item.title }}</a> - 
-   {% endfor %}
-</ul>
 
   <body>
     <div id="container">
@@ -55,6 +50,11 @@
       </div>
     </div>
 
+    <ul>
+	{% for item in site.data.sitelist.docs %}
+	<a href="{{ item.url }}">{{ item.title }}</a> - 
+	{% endfor %}
+    </ul>
     {% include nav.html %}
     {% if site.google_analytics %}
       <script>
