@@ -1,0 +1,14 @@
+docs_list_title: Site Pages
+docs:
+
+- title: Home
+  url: index.html
+
+- title: Resources
+  url: resources.md
+
+- title: Blog
+  url: /blog/index.md
+  
+- title: About
+  url: about.md
