@@ -1,9 +1,16 @@
-theme: jekyll-theme-tactile
 
 name: d3fiant security
 description: A little learning is a dangerous thing
 url: d3fiant.io
-permalink: /blog/:year/:month/:day/:title
+#permalink: /blog/:year/:month/:day/:title
+
+# Theme Settings
+theme: jekyll-theme-tactile
+
+# Build settings
+#markdown: kramdown
+permalink: pretty
+
 
 
 defaults:
