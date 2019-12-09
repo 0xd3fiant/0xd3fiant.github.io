@@ -32,6 +32,7 @@ Collection of resources on a variety of topics that I've found useful over the y
 
 - [Hack the Box](https://www.hackthebox.eu/)
   - Capture the Flag site with vpn access to vulnerable network, crackme challenges, and reversing challenges.
+- [Pico CTF](https://picoctf.com/)
 - [Vulnhub](https://www.vulnhub.com/)
   - Website with a ton of vulnerable virtual machines for you to practice on
 - [Metasploitable](https://sourceforge.net/projects/metasploitable/)
@@ -102,7 +103,8 @@ Collection of resources on a variety of topics that I've found useful over the y
   - I'm use twitter combined with Nuzzel as a pretty effective notification system for cyber news. Nuzzel connects to your twitter account and notifies you when 3 (adjustable threshold) or more people that you follow retweet the same thing.
 - [Unsupervised Learning](https://danielmiessler.com/subscribe/)
   - Bi-Weekly Newsletter for the top security news and technical news
-
+- [Cyberscoop](https://www.cyberscoop.com/)
+= [Daily Threat Reports](https://www.silobreaker.com/threat-reports/)
 ----
 
 ## Malware Analysis and Reverse Engineering Links
@@ -118,3 +120,25 @@ Collection of resources on a variety of topics that I've found useful over the y
 - [Pentesting Tools Cheat Sheet](https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/#introduction)
 - [Cobalt Strike](https://blog.cobaltstrike.com/2015/09/30/advanced-threat-tactics-course-and-notes/)
 
+---
+## You Tube
+- [LiveOverflow](https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w)
+- [OJ Reeves](https://www.youtube.com/channel/UCz2aqRQWMhJ4wcJq3XneqRg)
+- [Malware Analysis for Hedghogs](https://www.youtube.com/channel/UCVFXrUwuWxNlm6UNZtBLJ-A)
+
+---
+## Other Security Blogs
+- [Rasta Mouse](https://rastamouse.me/categories/blog/)
+- [Spectre Ops](https://posts.specterops.io/)
+- [Red Teams](https://redteams.net/)
+- [Red Team Journal](https://redteamjournal.plus/)
+- [CyberWarDog](https://cyberwardog.blogspot.com/)
+- [XPNsec](https://blog.xpnsec.com/)
+- [Project Zero](https://googleprojectzero.blogspot.com/)
+- [g0tmi1k](https://blog.g0tmi1k.com/)
+
+-- 
+## Resource Books
+- Hacking: The Art of Exploitation
+- The Art of Memory Forensics
+- Practical Malware Analysis
