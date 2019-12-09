@@ -137,8 +137,8 @@ Collection of resources on a variety of topics that I've found useful over the y
 - [Project Zero](https://googleprojectzero.blogspot.com/)
 - [g0tmi1k](https://blog.g0tmi1k.com/)
 
--- 
-## Resource Books
+--- 
+## Books
 - Hacking: The Art of Exploitation
 - The Art of Memory Forensics
 - Practical Malware Analysis
