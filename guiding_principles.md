@@ -27,7 +27,7 @@ They make mistakes. They have wants, desires, and flaws. Just like you.
 ## Never attribute to malice that which is adequately explained by stupidity (Hanlon's Razor)
 Humaity is always ready to jump on the conspiracy therory or evil intent. In reality, people are stupid and that's far more common the motivation.
 
-## Among competing hypotheses, the one with the fewest assumptions should be selected 
+## Among competing hypotheses, the one with the fewest assumptions should be selected (Occam’s Razor)
 Simple is easy to test. Simple is easy to execute. Don't complecate for the sake of complecation.
 
 ## Adjust Your Belief For New Evidence (Bayesian Inference)
